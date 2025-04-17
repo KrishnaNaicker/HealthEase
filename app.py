@@ -32,9 +32,9 @@ config = {
         "primary_color": "#0B5ED7",    # Accessible Blue
         "secondary_color": "#6c757d",  # Gray
         "accent_color": "#198754",     # Green
-        "light_color": "#141413",     # Very Light Blue-Gray Background
+        "light_color": "#1F2937",     # Very Light Blue-Gray Background
         "background_color": "#141413", # White Content Background
-        "card_bg": "#141413",
+        "card_bg": "#1F2937",
         "dark_color": "#F1F5F9",      # Dark Text Color
         "font_family": "'Lato', sans-serif",
         "hero_bg_gradient": "linear-gradient(145deg, #141413 0%, #cce7ff 100%)", # Lighter Blue Gradient
@@ -187,6 +187,7 @@ def load_css():
     .sidebar-column .nav-link {{
         color: var(--text-color) !important; /* Dark text */
         border-radius: 6px; margin-bottom: 4px;
+        bac
         transition: background-color 0.2s ease, color 0.2s ease;
         padding: 10px 15px !important; font-size: 0.95rem !important;
     }}
@@ -257,7 +258,7 @@ def load_css():
     .stExpander {{ border: 1px solid #e0e0e0 !important; border-radius: var(--border-radius) !important; box-shadow: none !important; margin-bottom: 1rem; overflow: hidden; }}
     .stExpander header {{ background-color: #e9f5fd !important; border-top-left-radius: var(--border-radius) !important; border-top-right-radius: var(--border-radius) !important; padding: 10px 15px !important; border-bottom: 1px solid #d0dff0 !important; }}
     .stExpander header p {{ font-weight: 600; color: var(--primary-color); }}
-    .stExpander [data-testid="stExpanderDetails"] {{ background-color: black !important; padding: 15px !important; border-bottom-left-radius: var(--border-radius) !important; border-bottom-right-radius: var(--border-radius) !important; }}
+    .stExpander [data-testid="stExpanderDetails"] {{ background-color: #1F2937 !important; padding: 15px !important; border-bottom-left-radius: var(--border-radius) !important; border-bottom-right-radius: var(--border-radius) !important; }}
     .stExpander [data-testid="stExpanderDetails"] p,
     .stExpander [data-testid="stExpanderDetails"] li,
     .stExpander [data-testid="stExpanderDetails"] span {{ color: var(--text-color) !important; }}
@@ -355,7 +356,7 @@ def render_logged_out_navbar():
         with nav_cols[4]:
             # Emergency Button uses st.button, needs specific container class for styling
             if st.button("🚨 Emergency (102)", key="nav_emergency_lo", use_container_width=True):
-                st.warning("Simulating call to 102. In a real emergency, please dial 102 directly using your phone.", icon="⚠️")
+                st.warning("In a real emergency, please dial 102 directly using your phone.", icon="⚠️")
             st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
@@ -452,7 +453,7 @@ def landing_page():
     # --- About Us Section (NEW) ---
     # Ensure this container has the ID for the anchor link to target
     with st.container():
-        st.markdown('<div id="about-us-section" style="padding: 1rem 1rem; max-width: 900px; margin: 0 auto 2.5rem auto; text-align: left; background-color: var(--background-color); border-radius: var(--border-radius); box-shadow: var(--card-shadow);">', unsafe_allow_html=True) # ID is here
+        st.markdown('<div id="about-us-section" style="padding: 1rem 1rem; max-width: 900px; margin: 0 auto 2.5rem auto; text-align: left; background-color: var(--light-color); border-radius: var(--border-radius);">', unsafe_allow_html=True) # ID is here
         st.markdown('<h2 style="text-align: center; color: var(--primary-color); border-bottom: none; margin-bottom: 1.5rem;">About HealthEase</h2>', unsafe_allow_html=True)
         st.markdown("""
             <p style="font-size: 1.1em; color: var(--text-color); line-height: 1.7; padding: 0 1rem;">
