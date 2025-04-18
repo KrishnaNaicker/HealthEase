@@ -31,17 +31,18 @@ def remove_boilerplate(text):
 class ResearchAnalyzer:
     def __init__(self, models_dir="models"):
         self.models_dir = models_dir
-        
-        pubmedbert_path = os.path.join(self.models_dir, "PubMedBERT")
-        pubmedbert_tokenizer_path = os.path.join(self.models_dir, "PubMedBERT_tokenizer")
-        self.tokenizer = AutoTokenizer.from_pretrained(pubmedbert_tokenizer_path)
-        self.model = AutoModelForSequenceClassification.from_pretrained(pubmedbert_path)
-        
+
+        # Load classifier model and tokenizer from huggingface repo with subfolders
+        self.tokenizer = AutoTokenizer.from_pretrained("Krishna2908/pubmedbert_hf", subfolder="tokenizer")
+        self.model = AutoModelForSequenceClassification.from_pretrained("Krishna2908/pubmedbert_hf", subfolder="model")
+
+        # Load Pegasus summarization model and tokenizer from subfolders in repo
         self.summarizer = pipeline(
             "summarization",
-            model=Config.TEXT_GENERATION_MODEL,
-            tokenizer=Config.TEXT_GENERATION_TOKENIZER
+            model="Krishna2908/PegasusXSum",
+            tokenizer="Krishna2908/PegasusXSum_tokenizer"
         )
+
 
     @staticmethod
     def clean_text(text):
@@ -76,7 +77,7 @@ class ResearchAnalyzer:
 
     def extract_key_points(self, text, num_points=8):
         sentences = re.split(r'(?<=[.!?])\s+', text)
-        filtered = [s.strip() for s in sentences if 8 < len(s.split()) < 30]  # Limiting size of key points
+        filtered = [s.strip() for s in sentences if 8 < len(s.split()) < 30]
         seen = set()
         unique = []
         for s in filtered:
@@ -84,7 +85,7 @@ class ResearchAnalyzer:
                 unique.append(s)
                 seen.add(s.lower())
         sorted_sentences = sorted(unique, key=lambda s: len(s.split()), reverse=True)[:num_points]
-        final_key_points = [" ".join(re.split(r'(?<=[.!?])\s+', kp)[:2]) for kp in sorted_sentences]  # Strictly 2 sentences
+        final_key_points = [" ".join(re.split(r'(?<=[.!?])\s+', kp)[:2]) for kp in sorted_sentences]
         return final_key_points
 
     def analyze_research_paper(self, pdf_file):
